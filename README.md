@@ -1,2 +1,2 @@
 # mlflow-airflow-and-etc.
-Работа с MLOps
+Работа с MLOps инструментами
