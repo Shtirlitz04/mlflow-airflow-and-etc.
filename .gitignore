@@ -21,3 +21,4 @@ mlruns/
 # Системные файлы (Windows/Mac)
 .DS_Store
 Thumbs.db
+/Iris.csv

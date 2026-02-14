@@ -1,0 +1,20 @@
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+def start_learning():
+    from mlflow_practice import main
+    main()
+
+dag = DAG('ml_pipeline',
+          start_date=datetime(2024, 1, 1),
+          schedule_interval=None
+          )
+
+pull_task = BashOperator(task_id='pull_dvc', bash_command='dvc pull', dag=dag)
+train_task = PythonOperator(task_id='train_model', python_callable=start_learning, dag=dag)
+push_task = BashOperator(task_id='push_dvc', bash_command='dvc push', dag=dag)
+
+
+pull_task >> train_task >> push_task
