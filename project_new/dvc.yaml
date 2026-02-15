@@ -1,0 +1,7 @@
+stages:
+  train:
+    cmd: python mlflow_practice.py
+    deps:
+      - mlflow_practice.py
+    outs:
+      - model_weights/model.pkl

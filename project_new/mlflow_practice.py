@@ -9,6 +9,18 @@ from sklearn.datasets import load_iris
 from sklearn.preprocessing import LabelEncoder 
 import mlflow.sklearn
 import pickle
+import os
+from pathlib import Path
+
+# определяем корень проекта относительно скрипта
+BASE_DIR = Path(__file__).resolve().parent
+
+# создаём папку для модели
+MODEL_DIR = BASE_DIR / "model_weights"
+MODEL_DIR.mkdir(exist_ok=True)
+
+# путь для сохранения модели
+model_path = MODEL_DIR / "model.pkl"
 
 def main():
     df = pd.read_csv('Iris.csv')
@@ -53,7 +65,7 @@ def main():
 
         mlflow.log_param('train_size', len(X_train))
         mlflow.log_param('test_size', len(X_test))
-        with open('model_weights/model.pkl', 'wb') as f:
+        with open(model_path, 'wb') as f:
             pickle.dump(clf, f)
         
         print(f"Accuracy: {accuracy:.4f}")
